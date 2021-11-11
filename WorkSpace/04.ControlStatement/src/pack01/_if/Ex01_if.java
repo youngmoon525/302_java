@@ -24,7 +24,7 @@ public class Ex01_if {
 			System.out.println("score는 80보다 큽니다.");
 		}//if문의 지역 <-여기서 메모리에서 사라짐
 
-		System.out.println("프로그램 종료 " + result );
+		//System.out.println("프로그램 종료 " + result );
 		//if문을 하나 더 추가해서 점수가 50보다 높다면
 		//수고하셨습니다 라고 콘솔에 출력되게 만들기.(기존if문 그대로둠)
 		if(score > 50) {
