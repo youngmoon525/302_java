@@ -9,6 +9,7 @@ public class Ex02_for {
 		//지역을 만들수있다. (기준은 블럭킹)
 		//0~9
 		for(int i = 0 ; i<10 ; i++) {
+			
 			//0~9의 수중 짝수인것만 출력을 하고싶을때. 어떻게 해야할까?
 			//n % 2 ... 0인것.
 			if(i%2 == 0) {//if< true일때만 실행되는블럭
@@ -27,11 +28,11 @@ public class Ex02_for {
 		for(int i = 0 ; i<=9 ; i++) {
 			//int oddNum = 0 ; 변수 선언 위치를 반복문 밖으로 이동↑
 			if(i%2 == 1) {
-				 oddNum += i;
+				 oddNum += i;//oddNum = oddNum+i;
 			}else {
-				evenNum += i;
+				evenNum += i;//evenNum = evenNum+i;
 			}
-			sum += i;
+			sum += i;//sum = sum+i;
 		}
 		System.out.println("홀수의 합 : " + oddNum);
 		System.out.println("짝수의 합 : " + evenNum);

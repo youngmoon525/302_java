@@ -18,7 +18,7 @@ public class Ex01_if {
 		//if문 블럭킹 내부에서 변수를 선언하고 사용하게 되면
 		//블럭킹이 끝남과 동시에 메모리에서 사라지기때문에 블럭킹에
 		//유의할 필요가 있다.
-		if(score > 80) {
+		if(score > 70) {
 			//지역안에 변수를 만듬(지역변수)
 			score = 23;
 			System.out.println("score는 80보다 큽니다.");
