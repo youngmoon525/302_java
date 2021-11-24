@@ -35,6 +35,7 @@ public class Ex01_Method {
 	public int method4(int x , int y) {
 		System.out.println("x : " + x);
 		System.out.println("y : " + y);
+		int result = x + y ;
 		return x+y;
 	}
 	

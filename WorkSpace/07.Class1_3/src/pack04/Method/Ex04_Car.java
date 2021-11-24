@@ -1,6 +1,13 @@
 package pack04.Method;
 
 public class Ex04_Car {
+	//인스턴스 멤버 : 인스턴스 멤버끼리는 언제든지 서로 접근이 가능하다.
+	//인스턴스 클래스(중첩 클래스) x
+	//인스턴스 변수(필드,iv)
+	//인스턴스 메소드 
+	//해당하는 객체가 인스턴스화(객체화) 되어야만 접근이 가능하다.
+	//ex)Ex04_Car car = new Ex04_Car(); <-인스턴스화 식
+	
 	//field 객체가 가지는 속성 (정보)
 	String company ; // 제조사
 	String model ; //차종
@@ -35,9 +42,19 @@ public class Ex04_Car {
 		System.out.println("가스량 : " + gas);
 	}
 
-	public void changeSpeed(int i) {
+	public void changeSpeed(int i) {//메인에서 입력받은 속도 i
+									//field => speed
+		//1.메인에서 보내준 300이라는 값은 어디에 있을까? i
+		//2.그값이 만약에 몇보다 크면 이라는 조건?
+		//3.최대 속도는 몇일까?
+		if(i >= maxSpeed) {
+			i = maxSpeed;
+		}
+			speed = i;
+		
 		System.out.println("기존 속도 " + speed + " 현재 속도 : " + i);
-		speed = i;
+	
+		//인스턴스 멤버끼리는 언제든지 접근이 가능하다.
 	}
 	
 	

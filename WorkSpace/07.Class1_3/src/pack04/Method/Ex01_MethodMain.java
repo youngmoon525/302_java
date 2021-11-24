@@ -11,6 +11,7 @@ public class Ex01_MethodMain {
 		System.out.println(em.method2() + 20 );
 		//return타입이 있는 메소드는 return타입으로 지정해놓은 변수와 똑같다고
 		//생각을 하면된다. em.method2() == int (return Type int)
+		String a = "a" , b = "b";
 		em.method3("a", "b");
 		
 		//int result = em.method4(1, 2);
