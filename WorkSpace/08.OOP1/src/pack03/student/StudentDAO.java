@@ -11,6 +11,19 @@ public class StudentDAO {
 		System.out.print("총점 : " + dto.sum+"\t");
 		System.out.println("평균 : " + dto.avg);
 	}
+	public void display(StudentDTO[] dtos) {
+		for (int i = 0; i < dtos.length; i++) {
+			getSum(dtos[i]);
+			getAvg(dtos[i]);
+			display(dtos[i]);
+//			System.out.print("이름 : " + dtos[i].name +"\t");
+//			System.out.print("국어 : " + dtos[i].kor+"\t");
+//			System.out.print("영어 : " + dtos[i].eng+"\t");
+//			System.out.print("수학 : " + dtos[i].mat+"\t");
+//			System.out.print("총점 : " + dtos[i].sum+"\t");
+//			System.out.println("평균 : " + dtos[i].avg);
+		}
+	}
 
 	public void getSum(StudentDTO dto) {
 		dto.sum = dto.kor + dto.eng + dto.mat;
