@@ -5,7 +5,6 @@ public class DrinkDTO {
 	public int price ; //가격
 	public int cnt ; //수량
 	public DrinkDTO(String name, int price, int cnt) {
-		super();
 		this.name = name;
 		this.price = price;
 		this.cnt = cnt;
