@@ -22,8 +22,13 @@ public class BookDTO {
 						   //외부 접근을 막아놓은 상태라면, 사용하는 getter메소드의
 						   //기본형태
 	}
-	public void setPrice(int price) {
-		this.price = price ;
+
+	public void setPrice(int price) {//dto.setPrice(-100);
+		//필드에 접근을 바로 막는 이유 : 필드에 논리적으로 들어가면 안되는값이
+		//들어가는것을 방지하고자.
+		if(price > 0) {
+			this.price = price ;
+		}
 		//메소드 호출 시 세팅할값을 보내주고 그값을 통해서 필드를 세팅을 한다.
 	}
 	
