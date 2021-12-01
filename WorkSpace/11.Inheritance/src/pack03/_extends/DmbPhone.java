@@ -17,14 +17,22 @@ public class DmbPhone extends CellPhone {
 	
 	//turnOnDmb 메소드는 
 	//" 채널 2을 시청시작(DMB) 
-	
+	public void turnOnDmb() {
+		System.out.println("채널 " + channel + "를 시청시작");
+	}
 	//changeChannelDMB 
 	//사용자에게 채널을 입력받아 채널을 바꿔준다. 
 	//채널 8으로 변경 됨
-	
+	//setter ↓
+	public void changeChannelDMB(int channel) {
+		this.channel = channel;
+		System.out.println("채널 " + channel + "으로 변경 됨");
+	}
 	//turnOffDmb
 	//8 채널을 시청하다가 시청을 종료하고 DMB가 꺼졌습니다.
-	
+	public void turnOffDmb() {
+		System.out.println(channel + " 채널을 시청하다가 시청을 종료하고 DMB가 꺼졌습니다.");
+	}
 	
 	
 	
