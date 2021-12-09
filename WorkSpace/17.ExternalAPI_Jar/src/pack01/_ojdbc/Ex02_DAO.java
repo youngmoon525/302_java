@@ -5,72 +5,186 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ex02_DAO {
-
-	private Connection conn ; //null
-	private PreparedStatement ps; //null
-	private ResultSet rs ; //null
-	//return Type void = > Connection 
-	//연결이 필요하다면 항상 호출해서 사용할수있는 메소드로 만든다. 
-	public Connection getConn() {
-
+	// Java <-> Oracle Database 연동하기위해서 필요한 객체
+	//Connection <- Database와 연결로(통로)를 만듬 
+	//PreparedStateMent <- Connection을 통해서 만들어진 통로를 통해 전송을 담당함.(java->db , db->java)
+	//ResultSet <- PreparedStateMent가 가지고온 결과를 담는 용도로 사용하는 객체 
+	private Connection conn ; //연결객체 선언 null(Interface)
+	private PreparedStatement ps;//전송객체 선언
+	private ResultSet rs ; //결과객체 선언.
+	
+	//1.Connection이 정상적으로 열리는지를 확인. (isClosed)라는 메소드(boolean을 return하는 메소드)
+	public Connection connDB() {
+		//Connection을 하기위해서는 ojdbc8.jar(API) => (oracle.jdbc.driver.OracleDriver)
+		//url(아이피,포트,오라클 버전정보) , user(계정이름 : hanul, hr) , password ( 0000)
+		//String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String user = "hanul";
-		String password = "0000";
+		String user = "hanul";//※ Employees ( 사원정보 테이블) => hr , hanul =>BOARD
+		String password = "0000";//실무에서는 암호화를 통해 알아볼수없는값이 들어있음(보안)
+		//동적 Driver를 로딩!. Class.forName(Driver.class);
+		Connection cn = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url, user, password);
+			cn = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return conn;
-	}//getConn
+		return cn;
+	}
 	
 	public void dbClose() {
-		// 1.연결=>2.전송=>3.결과
-		// 3.결과비움=>2.전송객체x=>1.연결x 역순으로 닫음.비움
+		//1.연결 -> 2.전송 <->DB 3.전송->결과
+		//3.결과닫음->전송닫고->연결.
 		try {
-			//nullpointerException<= null에서 어떤 기능을 사용할때 빈번하게 발생
 			if(rs != null) rs.close();
 			if(ps != null) ps.close();
 			if(conn != null) conn.close();
-			//이메소드를 호출했을때 에러가 발생할까?  안할까?
-			//발생한다면 어떤식으로 회피할수있을까?ㅇ
-		} catch (SQLException e) {
+			//NullpointerException , rs가 인스턴스화 되지 않은경우,ps,conn
+			//null.close() ==X -> null을 회피하는 방법.(null이 아닌경우에만 기능(멤버)을 사용하면됨)
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	//getConn();메소드를 호출해서 Connection 객체를 초기화 하고,
-	//conn=> ps(전송)초기화 => 전송
-	public void connTest() {
-		//전송시 필요한것 (sql문) == String , <xml> myBatis API
-		conn = getConn();//DB접속이 가능하게 Connection객체를 초기화 시킴.
-		String sql = " select 1 from dual ";
+	
+	//초기 DB연결시에는 반드시 바로 실제 테이블에 접근해서 정보를 조회,수정,추가,삭제하는게아니라,
+	//가상의 테이블인 dual을 이용해서 1값을 조회하고 1을 그대로 java에 가져오는지 체크를 먼저하는게 좋다.
+	//통신체크 ( java->(1)->db(1)->java(1) )
+	
+	public void connTest(String data) {//() => String data를 입력받는 형태로 변경됨.
+		conn = connDB();//Connection 객체를 초기화 시킴.
+		String sql = " SELECT '" +  data + "' as col from dual  " ; //String + String = String
+		System.out.println(sql);
 		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();//executeQuery는 메소드이기때문에 메소드 블럭이끝나면 그결과가 사라짐.
-			while(rs.next()) {
-				int data = rs.getInt("1");
-				System.out.println(data);
+			ps = conn.prepareStatement(sql);//연결객체를 통해서 전송객체가 이동하므로
+											//항상 연결객체를 통해 전송객체는 초기화됨
+			rs = ps.executeQuery(); // 데이터베이스에가서 sql문을 실행하고 그 결과를 가지고옴.(ResultSet)
+			while(rs.next()) {//rs.next() 다음칸으로 이동을하고 그결과가 성공(true)
+				 data = rs.getString("col");//파라메터 STR ="컬럼의 이름"
+												//파라메터 INT = 컬럼의 순서
+				System.out.println("db에서 가지고옴"+data);
+				
 			}
-			
-		} catch (Exception e) {
-			System.out.println("Conntest 에러()");
+		}catch (Exception e) {
+			System.out.println("통신체크 에러");
 			e.printStackTrace();
-		}finally {
-			dbClose();//※※※※<- Close를 안시켜주면 DB에 동시에 접근이 가능한 회선수(세션수)
-					  //가 한정이 되어있기때문에 꼭 닫아준다.
 		}
 		
-	}//<- conn , ps , rs DAO클래스가 인스턴스화 되어있는 동안.
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	public void connTest2(String data1 , String data2 , int data3) {//() => String data를 입력받는 형태로 변경됨.
+		conn = connDB();//Connection 객체를 초기화 시킴.
+		//파라메터를 여러개 보내개 되면 String형식이나 int형식이나 '<-홑따옴표처리가 들어가야하는지
+		//안들어가야하는지 햇갈림(혼동이옴)
+		// ?<-라는 파라메터 부를 만드는 방법. (전송객체에 파라메터를 넘겨주고 타입을 지정)
+		String sql = " SELECT ? AS COL1, ? COL2 , ? AS COL3 FROM DUAL " ; //String + String = String
+		System.out.println(sql);
+		try {
+			ps = conn.prepareStatement(sql);//연결객체를 통해서 전송객체가 이동하므로
+											//항상 연결객체를 통해 전송객체는 초기화됨
+			ps.setString(1, data1);//반드시 ps가 실행전에 파라메터를 추가해줘야함※
+			ps.setInt(2, data3);
+			ps.setString(3, data2);
+			rs = ps.executeQuery(); // 데이터베이스에가서 sql문을 실행하고 그 결과를 가지고옴.(ResultSet)
+			while(rs.next()) {//rs.next() 다음칸으로 이동을하고 그결과가 성공(true)
+				 data1 = rs.getString("col1");//파라메터 STR ="컬럼의 이름"
+				 data3 = rs.getInt("col2");	
+				 data2 = rs.getString("col3");//파라메터 INT = 컬럼의 순서
+				System.out.println("db에서 가지고옴"+data1 + data2 + data3);
+				
+			}
+		}catch (Exception e) {
+			System.out.println("통신체크 에러");
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	public void selectBoard() {
-		// conn->ps->rs
-		//String sql = " select * from board " ; 
+		conn = connDB();
+		// 테이블의 내용을 정렬해서 내가 필요한 순서가 있다면 Database에서 그순서를 만들어온다.
+		String sql = " select * from board order by no desc " ;
+		try {
+			ps = conn.prepareStatement(sql); 
+			rs = ps.executeQuery(); //ResultSet( 조회결과)
+			while(rs.next()) {
+				System.out.print(rs.getInt("no") + ".");
+				System.out.print(rs.getString("title")+" ");
+				System.out.println(rs.getString("content"));
+			}
+		}catch (Exception e) {
+			System.out.println("게시판 글 조회 실패");
+		}finally {
+			dbClose();
+		}
+		
 	}
+	
+	
+	public ArrayList<Ex02_BoardDTO> selectBoardList() {
+		conn = connDB();
+		String sql = " select * from board order by no desc " ;
+		ArrayList<Ex02_BoardDTO> list = new ArrayList<>();
+		//선언만함 == null
+		//선언을하고 new로 인스턴스화함  listCollection> [ ]
+		try {
+			ps = conn.prepareStatement(sql); 
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(new Ex02_BoardDTO(
+						rs.getInt("no")
+						, rs.getString("title")
+						, rs.getString("content"))
+						);
+			}
+		}catch (Exception e) {
+			System.out.println("게시판 글 조회 실패");
+		}finally {
+			dbClose();
+		}
+		return list ;
+		
+	}
+
+	public void display(ArrayList<Ex02_BoardDTO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			System.out.print(list.get(i).getNo()+".");
+			System.out.print(list.get(i).getTitle()+" ");
+			System.out.print(list.get(i).getContent()+" ");
+			System.out.println();
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
