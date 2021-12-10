@@ -58,7 +58,7 @@ public class Ex02_DAO {
 	
 	public void connTest(String data) {//() => String data를 입력받는 형태로 변경됨.
 		conn = connDB();//Connection 객체를 초기화 시킴.
-		String sql = " SELECT '" +  data + "' as col from dual  " ; //String + String = String
+		String sql = " SELECT 1 col from dual  " ; //String + String = String
 		System.out.println(sql);
 		try {
 			ps = conn.prepareStatement(sql);//연결객체를 통해서 전송객체가 이동하므로
@@ -165,15 +165,93 @@ public class Ex02_DAO {
 		return list ;
 		
 	}
+	
+	
+	//↓글의 목록중에 한건을 선택해서 상세보기 기능을 위한 메소드.
+	public Ex02_BoardDTO selectBoardList(int whereNo) {
+		conn = connDB();
+		String sql = " select * from board where no = ? " ;
+		Ex02_BoardDTO dto  = null;//생성자를 사용하기위해서(빈깡통x) 비워두기(null)
+		//선언만함 == null
+		//선언을하고 new로 인스턴스화함  listCollection> [ ]
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, whereNo);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				dto =	new Ex02_BoardDTO(
+						rs.getInt("no")
+						, rs.getString("title")
+						, rs.getString("content"));
+					
+			}
+		}catch (Exception e) {
+			System.out.println("게시판 글 조회 실패");
+		}finally {
+			dbClose();
+		}
+		return dto ;
+		
+	}
 
+	
 	public void display(ArrayList<Ex02_BoardDTO> list) {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.print(list.get(i).getNo()+".");
 			System.out.print(list.get(i).getTitle()+" ");
-			System.out.print(list.get(i).getContent()+" ");
+
 			System.out.println();
 		}
 		
+	}
+
+	public int getMaxNo() {
+		//1.연결 2.전송 3.결과 Conn <- Conn.ps <- ps.rs JDBC 
+		//전송객체를 초기화할때 sql문을 같이 넘겨줘야함.
+		conn = connDB();//1.번 완료  
+		String sql = " SELECT MAX(NO)+1 max_no FROM BOARD "; 
+		int maxNo  = 0;
+		//SQL을 복사해오면 좋은이유 : 이미 dev에서 완료된 sql문이기때문에 오류를 잡을때 의심을 안해도됨
+		//디버깅 속도가 더 빨라질수가있음.
+		try {
+			ps = conn.prepareStatement(sql); //2.초기화 완료.
+			rs = ps.executeQuery();//3.번 전송객체가 실행되서 DB까지 전송을하고 결과를 받아오는것
+			while(rs.next()) {
+				maxNo = rs.getInt("max_no");
+				System.out.println(maxNo);
+			}
+		}catch (Exception e) {
+			System.out.println("최대 NO 구하는 메소드 에러");
+			e.printStackTrace();
+		}
+		
+		return maxNo;
+	}
+
+	public int boardInsert(Ex02_BoardDTO dto) {
+		String sql = "INSERT INTO BOARD VALUES ( ? , ? , ? )";
+		int result = 0;
+		// 1.no 2.title 3.contnt , int , String ,String
+		conn = connDB();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, dto.getNo());
+			ps.setString(2, dto.getTitle());
+			ps.setString(3, dto.getContent());//3개의 물음표 (파라메터) 보낼값을 추가함.
+			//ps.excuteUpdate => int값 성공 : 1 그외 : 실패
+			result = ps.executeUpdate();//<- Auto Commit ;
+			if(result == 1) {
+				System.out.println("성공!");
+			}else {
+				System.out.println("실패");
+			}
+		}catch (Exception e) {
+			System.out.println("글 추가 오류");
+		}
+		//1.연결 2.전송 3.결과  
+		//1.Connection초기화 2.PreparedStatement(연결) 초기화 3.ResultSet(전송)
+		// Sql = " INSERT ? ";
+		return result;
 	}
 	
 	
