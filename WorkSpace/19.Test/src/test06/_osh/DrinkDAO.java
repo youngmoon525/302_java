@@ -341,7 +341,7 @@ public class DrinkDAO<drinkDTO> {
 	// 관리자모드 3.삭제
 	public void delete(int delMenu) {
 		conn = connDB();
-		String sql = "DELETE FROM  osh_drink_tbl WHERE NO>" + delMenu;
+		String sql = "DELETE FROM  osh_drink_tbl WHERE NO =" + delMenu;
 		int a = 0;
 		try {
 			ps = conn.prepareStatement(sql);

@@ -69,7 +69,7 @@ public class TestMain {
 						dao.DrinkDel(list);
 					}else if(menu == 4) {
 						//재고관리
-						
+						//update drink_tbl set cnt = cnt + ? where no = ? 
 					}else if(menu == 5){
 						//로그아웃
 						

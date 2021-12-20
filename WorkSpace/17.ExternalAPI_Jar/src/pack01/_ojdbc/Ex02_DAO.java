@@ -253,6 +253,63 @@ public class Ex02_DAO {
 		// Sql = " INSERT ? ";
 		return result;
 	}
+
+	
+	
+	public boolean checkNo(int no) {
+		//1.연결 (Connection)<= 2.전송(Ps) <= 3.결과를 받아와야할때(rs)
+		conn = connDB(); //1.
+		try {
+			ps = conn.prepareStatement(" SELECT COUNT(*) cnt FROM BOARD where no = ? ");//2
+			ps.setInt(1, no);
+			rs = ps.executeQuery();//3
+			while(rs.next()) { //COUNT의 장점 무조건 1개의 행은.
+				if( rs.getInt("cnt") == 1 ) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return false;
+	}
+
+	public int boardUpdate(Ex02_BoardDTO dto) {
+		//update , delete , insert ( ps.excuteUpdate => int형 반환 )
+		//select ( ps.excuteQuery() => ResultSet을 반환 )
+		//1.연결 2.전송 3.결과 
+		conn = connDB();
+		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT = ? WHERE no = ? ";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setInt(3, dto.getNo());
+			return ps.executeUpdate();//int를 리턴하는 메소드이기때문에 int와 같다 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int deleteBoard(int no) {
+		//1.Conntetion(연결) 2.ps(전송) 3.실행,또는 결과 excute + (update,query)
+		conn = connDB();
+		try {
+			ps = conn.prepareStatement(" DELETE FROM BOARD WHERE NO = ? ");
+			ps.setInt(1, no);
+			return ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
 	
 	
 	

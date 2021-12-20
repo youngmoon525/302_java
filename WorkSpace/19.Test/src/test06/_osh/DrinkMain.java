@@ -47,7 +47,7 @@ public class DrinkMain {
 						}else if(manage==3) {//상품삭제
 					        int delMenu = dao.select("삭제할 음료의 번호를 입력하세요.");
 						    dao.delete(delMenu);
-						    dao.resetNo(delMenu);
+						   // dao.resetNo(delMenu);
 							dao.Scanner("아무 숫자를 누르면 메인으로 돌아갑니다.");
 						}else if(manage==4) {//재고관리
 						 	int changemenu= dao.select("수정할 음료의 번호를 입력하세요.");

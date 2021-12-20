@@ -20,6 +20,9 @@ public class TestMain {
 					System.out.println("비밀번호를 입력해주세요.");
 					String pw = sc.nextLine();
 					dao.memberLogin(id, pw);
+					if(MemberDAO.dto == null) {
+						System.out.println("로그인 실패");
+					}
 					// Database접근을 해서 실제로 있는 아이디라면 => 메인로직 실행.
 					// => 아이디 비밀번호를 잘못입력하셨습니다.
 				} else if (menu.equals("2")) {

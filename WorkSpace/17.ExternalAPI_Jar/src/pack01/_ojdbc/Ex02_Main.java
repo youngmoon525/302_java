@@ -45,6 +45,33 @@ public class Ex02_Main {
 					//dto에 데이터를 전부넣고 dto로 데이를 묶어서 이동. 
 					//Strinig title , content ,int no
 					
+				}else if ( menu == 3) {
+					System.out.println("수정할 글의 번호를 입력해주세요.");
+					//db에 실제 있는값을 수정해야함. ( 실제로 없는값인데 사용자가 내용을 입력하고
+					//수정처리를 했을때 . 사용자는 불편함을 느낀다 ) 
+					int no = Integer.parseInt(sc.nextLine());
+					if (  dao.checkNo(no)  ) {
+						Ex02_BoardDTO dto = new Ex02_BoardDTO(no, null, null);
+						System.out.println("글 제목을 입력해주세요.");
+						dto.setTitle(sc.nextLine());
+						System.out.println("글 내용을 입력해주세요.");
+						dto.setContent(sc.nextLine());
+						int succ = dao.boardUpdate(dto);
+						System.out.println(succ);
+						
+					}else  {
+						System.out.println("메뉴 선택 잘못된입력");
+					}
+				}else if (menu == 4) {
+					System.out.println("삭제 하실 글의 번호를 입력해주세요.");
+					int no = Integer.parseInt(sc.nextLine());
+					if (  dao.checkNo(no)  ) {
+						System.out.println("글을 삭제합니다.");
+						int succ = dao.deleteBoard(no);
+						System.out.println(succ);
+					}else {
+						System.out.println("번호를 잘못입력하셨습니다. 메뉴로▶");
+					}
 				}
 			}catch (Exception e) {
 				System.out.println("잘못된 입력입니다. 1~4까지의 수만 입력해주세요.");

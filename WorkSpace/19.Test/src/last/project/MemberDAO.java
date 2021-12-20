@@ -55,6 +55,12 @@ public class MemberDAO {
 				dto = new MemberDTO(rs.getInt("student_no"), rs.getString("user_id"), rs.getString("user_pw"),
 						rs.getString("admin"), rs.getString("user_nick"));
 			}
+//			System.out.println(dto == null ? true : false);
+//			if(dto == null) {
+//				return true;
+//			}else {
+//				return false;
+//			}
 		} catch (Exception e) {
 
 		}finally {

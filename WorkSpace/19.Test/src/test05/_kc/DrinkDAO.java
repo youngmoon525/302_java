@@ -228,6 +228,13 @@ public class DrinkDAO {
 		return list;
 	}
 	public void display(ArrayList<DrinkDTO> list) {
+//		i  1-1 0
+//		1.물 , list.get(0).getNo(); 
+//		2.콜라
+//		3.<-
+//		4.콜라2   , 음료의 번호를 i로 보여주고 실제 로직처리는 getNo받아서 처리하면 사용자는
+		//음료의 번호가 비어있는상태로 보는게 아니라 , 무조건 채워진 상태의 번호를 볼수있다.
+
 		for (int i = 0; i < list.size(); i++) {
 			System.out.print(list.get(i).getNo() + ". ");
 			System.out.print(list.get(i).getName()+"(");
