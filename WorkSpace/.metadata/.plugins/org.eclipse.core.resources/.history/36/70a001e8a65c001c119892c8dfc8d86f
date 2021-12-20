@@ -1,0 +1,10 @@
+package pack01_.ojdbc;
+
+public class DrinkMain {
+	public static void main(String[] args) {
+	
+			DrinkDAO dao = new DrinkDAO();
+			dao.drinkdisplay();
+		
+	}
+}

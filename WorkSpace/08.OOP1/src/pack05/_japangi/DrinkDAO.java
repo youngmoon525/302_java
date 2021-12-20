@@ -68,7 +68,7 @@ public class DrinkDAO {
 		}else {
 			if(dtos[choice - 1].price <= money ) {
 				money = money - dtos[choice - 1].price ;
-
+				
 			}else {
 				System.out.println("입력하신 금액이 부족합니다.");
 			}

@@ -1,0 +1,11 @@
+package pack03_.commonsemail;
+
+import org.apache.commons.mail.SimpleEmail;
+
+public class EmailSend {
+	//Email , SimpleEmail 글자만 전송하는경우 ,  AttachEmail 파일을 추가한경우
+	//HtmlMail Html태그가 사용이 된 경우.
+	public void sendESimple() {
+		SimpleEmail mail = new SimpleEmail();//<=파라메터를 입력받는 생성자 메소드가 없음
+	}
+}

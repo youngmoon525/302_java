@@ -1,0 +1,5 @@
+package pack03_.commonsemail;
+
+public class EmailSend {
+
+}

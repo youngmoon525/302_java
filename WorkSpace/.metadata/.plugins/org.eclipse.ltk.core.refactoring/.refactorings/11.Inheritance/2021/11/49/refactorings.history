@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;pack01._extends.Prent_Class.java&apos; to &apos;Parent_Class.java&apos;&#x0D;&#x0A;- Original project: &apos;11.Inheritance&apos;&#x0D;&#x0A;- Original element: &apos;pack01._extends.Prent_Class.java&apos;&#x0D;&#x0A;- Renamed element: &apos;pack01._extends.Parent_Class.java&apos;" description="Rename compilation unit &apos;Prent_Class.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;pack01._extends{Prent_Class.java" name="Parent_Class.java" references="false" stamp="1638257576409" version="1.0"/>
+</session>

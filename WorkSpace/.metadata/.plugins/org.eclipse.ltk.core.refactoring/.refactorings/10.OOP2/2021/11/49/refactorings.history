@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;BookDTO.java&apos; to &apos;10.OOP2/src/pack01.userprivate&apos;&#x0D;&#x0A;- Original project: &apos;10.OOP2&apos;&#x0D;&#x0A;- Destination element: &apos;10.OOP2/src/pack01.userprivate&apos;&#x0D;&#x0A;- Original element: &apos;pack01.userprivate.BookDTO.java&apos;" description="Copy compilation unit" destination="/src&lt;pack01.userprivate" element1="/src&lt;pack01.userprivate{BookDTO.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1638249027572" units="1" version="1.0"/>
+</session>

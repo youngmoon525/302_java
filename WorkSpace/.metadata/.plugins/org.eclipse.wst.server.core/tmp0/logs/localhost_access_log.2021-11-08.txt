@@ -1,0 +1,10 @@
+127.0.0.1 - - [08/Nov/2021:14:28:48 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:28:49 +0900] "GET /studyhtml5/index.html HTTP/1.1" 200 156
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:29:47 +0900] "GET /studyhtml5/index.html HTTP/1.1" 200 156
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:29:47 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:30:15 +0900] "GET /studyhtml5/index.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:39:01 +0900] "GET /studyhtml5/index.html HTTP/1.1" 200 179
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:39:03 +0900] "GET /studyhtml5/index.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:14:39:04 +0900] "GET /studyhtml5/index.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:15:34:50 +0900] "GET /studyhtml5/ch03/index.html HTTP/1.1" 200 441
+0:0:0:0:0:0:0:1 - - [08/Nov/2021:15:40:57 +0900] "GET /studyhtml5/ch03/index.html HTTP/1.1" 200 523

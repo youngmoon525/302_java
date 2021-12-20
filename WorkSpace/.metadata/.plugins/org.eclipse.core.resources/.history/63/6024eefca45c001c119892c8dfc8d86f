@@ -1,0 +1,7 @@
+package pack01_.ojdbc;
+
+import java.sql.Connection;
+
+public class DrinkDAO {
+	Connection conn ; //1.연결객체 
+}

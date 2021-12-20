@@ -1,0 +1,12 @@
+package pack02_.coolsms;
+
+public class SendMassage {
+	public static void main(String[] args) {
+		//API_KEY = ?
+		//API_SECRET = ?
+		final String API_KEY = "발급받은 API_KEY";
+		final String API_SECRET = "발급받은 SECRET 지문모양누르면 나오는 KEY ";
+		//Coolsms (유료) : 카카오톡 플러스친구(알림톡,가맹점,사업자정보가있어야함) , 기타등등 기능이많음
+		//문자를 보내기 위해서는 CoolSMS서버를 이용을 해야함.
+	}
+}

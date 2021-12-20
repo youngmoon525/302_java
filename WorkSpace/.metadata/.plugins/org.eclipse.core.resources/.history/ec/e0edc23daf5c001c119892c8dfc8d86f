@@ -1,0 +1,9 @@
+package pack03_.commonsemail;
+
+public class EmailSend {
+	//Email , SimpleEmail 글자만 전송하는경우 ,  AttachEmail 파일을 추가한경우
+	//HtmlMail Html태그가 사용이 된 경우.
+	public void sendEmailSimple() {
+		
+	}
+}

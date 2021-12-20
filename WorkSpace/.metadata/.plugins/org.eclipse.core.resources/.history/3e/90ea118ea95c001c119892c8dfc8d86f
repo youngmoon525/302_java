@@ -1,0 +1,9 @@
+package pack02_.coolsms;
+
+public class SendMassage {
+	public static void main(String[] args) {
+		//API_KEY = ?
+		//API_SECRET = ?
+		
+	}
+}

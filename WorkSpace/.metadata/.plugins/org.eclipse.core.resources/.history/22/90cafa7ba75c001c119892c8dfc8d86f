@@ -1,0 +1,13 @@
+package pack01_.ojdbc;
+
+public class DrinkMain {
+	public static void main(String[] args) {
+			int money = 2000;
+			DrinkDAO dao = new DrinkDAO();
+			//dao.drinkdisplay();
+			System.out.println(money - dao.checkDrink(1).getPrice() );
+			
+			
+		
+	}
+}

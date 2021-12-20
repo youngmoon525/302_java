@@ -10,7 +10,10 @@ public class JapangiMain {
 		dtos[3] = new DrinkDTO("음료4", 2000, 0);
 		int money = 0 ;
 		//dtos <= 음료 추가 4건 로직 - O
+		// 자판기 
 		while(true){
+			String[] a = {"스트링"};
+			System.out.println(a);
 			int menu = dao.rtnInt("1.사용자모드  2.관리자모드 , 0.종료",0,2);
 			//1.사용자
 			if(menu == 1) {

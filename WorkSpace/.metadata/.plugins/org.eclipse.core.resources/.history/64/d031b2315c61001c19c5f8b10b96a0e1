@@ -1,0 +1,74 @@
+package last.project;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class MemberDAO {
+	public static MemberDTO dto;// 초기 상태 null
+	public static final int STUDENT_NO = 99 ;
+	private Connection conn;
+	private PreparedStatement ps;
+	private ResultSet rs;
+
+	public Connection connDB() {
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "javatest";
+		String password = "0000";
+
+		Connection cn = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			cn = DriverManager.getConnection(url, user, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cn;
+	}
+
+	public void dbClose() {
+		try {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void memberLogin(String id, String pw) {
+		conn = connDB();
+		String sql = "SELECT * FROM TEST_MEMBER WHERE STUDENT_NO = ? AND user_id = ? AND user_pw = ? ";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, STUDENT_NO);
+			ps.setString(2, id);
+			ps.setString(3, pw);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getString("user_id"));
+				dto = new MemberDTO(rs.getInt("student_no"), rs.getString("user_id"), rs.getString("user_pw"),
+						rs.getString("admin"), rs.getString("user_nick"));
+			}
+		} catch (Exception e) {
+
+		}finally {
+			dbClose();
+		}
+	}
+
+	public void memberJoin(MemberDTO dto) {
+		conn = connDB();
+		try {
+			String sql = "";
+			ps = conn.prepareStatement(sql);
+		}catch (Exception e) {
+			System.out.println("회원가입 중 에러");
+			e.printStackTrace();
+		}
+	}
+}
