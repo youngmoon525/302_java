@@ -1,8 +1,0 @@
-package pack01_.ojdbc;
-
-public class DrinkDTO {
-	private int no     ;
-	private String name   ;
-	private int price  ;
-	private int cnt    ;
-}

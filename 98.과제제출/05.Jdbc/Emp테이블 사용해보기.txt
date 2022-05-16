@@ -1,7 +1,0 @@
-1.금요일~일요일.
-DataBase연동해서 (java)
-1.hanul계정이 아니라 hr계정에 접속을 한다(Connection)
-2.Employees라는 테이블의 전체 정보를 조회한다.
-3.EmployeesDTO라는 DTO객체를 만들고
-4.ArrayList<EmpoyeesDTO> list 에 전부 내용을 넣기
-5.display() ;
